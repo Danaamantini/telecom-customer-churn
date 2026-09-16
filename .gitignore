@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Telecom Customer Churn — .gitignore
+# ---------------------------------------------------------------------------
+
+# ---- Data (immutable raw + derived artifacts must NOT be tracked) ----------
+# Ignore data files, but keep the scaffolding (README + .gitkeep) tracked.
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/README.md
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# ---- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- OS / editor -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ---- Logs & secrets --------------------------------------------------------
+*.log
+.env
+.env.*
+!.env.example
+
+# ---- Local scaffolding / tooling (not published) ---------------------------
+.opencode/
+AGENTS.md
+opencode.json
+prompt-1
+prompt-2
