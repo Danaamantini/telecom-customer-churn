@@ -1,4 +1,4 @@
-# Reproducible environment (Python 3.11+)
+# Reproducible environment (Python 3.12+)
 pandas==3.0.5
 numpy==2.5.2
 duckdb==1.5.5

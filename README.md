@@ -1,7 +1,7 @@
 # Telecom Customer Churn Analysis
 
 [![tests](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml/badge.svg)](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml)
-[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB)](https://www.python.org/)
 [![DuckDB](https://img.shields.io/badge/SQL-DuckDB-FFF000)](https://duckdb.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -36,7 +36,7 @@ should be validated through controlled retention experiments.
 
 ## Reproduce the project
 
-Requires Python 3.11 or newer.
+Requires Python 3.12 or newer.
 
 ```bash
 git clone https://github.com/Danaamantini/telecom-customer-churn.git
