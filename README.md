@@ -10,6 +10,8 @@ provider. The project uses Python for data preparation, SQL for business
 metrics, Tableau for presentation, and one interpretable logistic-regression
 exercise.
 
+![Telecom customer churn executive dashboard](dashboard/telecom_churn_dashboard.png)
+
 ## Business question
 
 Which customer segments are most associated with churn, how much recurring
@@ -58,6 +60,12 @@ Then run:
 ```bash
 python run_pipeline.py
 pytest -q
+```
+
+Regenerate the dashboard image used in this README with:
+
+```bash
+python -m src.dashboard_preview
 ```
 
 The pipeline validates the source, creates the 43-column customer table,
