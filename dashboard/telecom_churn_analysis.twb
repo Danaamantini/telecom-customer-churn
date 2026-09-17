@@ -817,6 +817,8 @@
       <simple-id uuid='{58344C93-3227-4BA9-A270-A024BFEFF28E}' />
     </worksheet>
   </worksheets>
+  <!-- Empty dashboard shells removed from the visible workbook. -->
+  <!--
   <dashboards>
     <dashboard enable-sort-zone-taborder='true' name='Dashboard 1'>
       <style />
@@ -893,6 +895,7 @@
       <simple-id uuid='{D2391A3A-3A23-46E8-96FA-D82951825B53}' />
     </dashboard>
   </dashboards>
+  -->
   <windows source-height='30'>
     <window class='worksheet' name='Churn by Contract'>
       <cards>
@@ -917,12 +920,14 @@
       </cards>
       <simple-id uuid='{98335E2F-8F9F-4A23-98A1-87EE4ACFCD71}' />
     </window>
+    <!--
     <window class='dashboard' maximized='true' name='Dashboard 2'>
       <viewpoints />
       <active id='-1' />
       <simple-id uuid='{BE117A01-E3E0-4A0A-85DB-226F761D3F3A}' />
     </window>
-    <window class='worksheet' name='Churn by Internet Type'>
+    -->
+    <window class='worksheet' maximized='true' name='Churn by Internet Type'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -945,11 +950,13 @@
       </cards>
       <simple-id uuid='{2EE69478-83C2-4472-B9BA-B4FF5DE54F1F}' />
     </window>
+    <!--
     <window class='dashboard' name='Dashboard 1'>
       <viewpoints />
       <active id='-1' />
       <simple-id uuid='{74D6EC47-ED3A-4BAC-A630-EE339A938D3A}' />
     </window>
+    -->
   </windows>
   <thumbnails>
     <thumbnail height='318' name='Churn by Internet Type' width='384'>
