@@ -1,60 +1,34 @@
-"""Unit tests for ``src.data.validation`` schema/shape checks."""
-
-from __future__ import annotations
+from pathlib import Path
 
 import pandas as pd
+import pytest
 
-from src.data import config, validation
-
-
-def _make_df(columns, nrows=2):
-    """Build a tiny DataFrame with the given columns (order-preserving)."""
-    return pd.DataFrame({c: range(nrows) for c in columns})
+from src.pipeline import clean_data, load_raw_data
+from src.validation import DataValidationError, validate_processed, validate_raw
 
 
-def test_validate_shape_detects_wrong_column_count():
-    df = _make_df(["a", "b", "c"], nrows=2)
-    report = validation.validate_shape(df, expected_rows=2, expected_cols=38)
-
-    assert report["check"] == "shape"
-    assert report["passed"] is False
-    assert report["actual"]["cols"] == 3
-    assert report["actual"]["rows"] == 2
-    assert report["expected"]["cols"] == 38
+FIXTURE = Path(__file__).parent / "fixtures" / "sample_customers.csv"
 
 
-def test_validate_columns_detects_missing_required_columns():
-    df = _make_df(["customer_id", "age", "unexpected_col"], nrows=2)
-    report = validation.validate_columns(df)
-
-    assert report["passed"] is False
-    assert "monthly_charge" in report["missing"]
-    assert "unexpected_col" in report["extra"]
+def test_raw_validation_rejects_duplicate_customer_ids():
+    raw = load_raw_data(FIXTURE)
+    duplicated = pd.concat([raw, raw.iloc[[0]]], ignore_index=True)
+    with pytest.raises(DataValidationError, match="unique"):
+        validate_raw(duplicated)
 
 
-def test_validate_dataset_returns_report_and_flags_shape_columns():
-    df = _make_df(["customer_id", "age"], nrows=2)
-    report = validation.validate_dataset(df, expected_rows=2, expected_cols=38)
+def test_processed_validation_reports_business_metrics():
+    clean = clean_data(load_raw_data(FIXTURE))
+    result = validate_processed(clean)
 
-    assert isinstance(report, dict)
-    assert "passed" in report
-    assert "results" in report
-    assert report["passed"] is False
-
-    checks = {r["check"]: r for r in report["results"]}
-    assert checks["shape"]["passed"] is False
-    assert checks["columns"]["passed"] is False
-    assert checks["columns"]["missing"]
+    assert result["rows"] == 6
+    assert result["columns"] == 43
+    assert result["churned"] == 2
+    assert result["joined"] == 1
+    assert result["churn_rate"] == pytest.approx(2 / 5)
 
 
-def test_correctly_shaped_38_col_df_passes_shape_and_columns():
-    df = _make_df(config.EXPECTED_COLUMNS, nrows=2)
-
-    shape = validation.validate_shape(df, expected_rows=2, expected_cols=38)
-    assert shape["passed"] is True
-
-    cols = validation.validate_columns(df)
-    assert cols["passed"] is True
-    assert cols["missing"] == []
-    assert cols["extra"] == []
-    assert cols["in_order"] is True
+def test_reference_validation_rejects_incomplete_dataset():
+    clean = clean_data(load_raw_data(FIXTURE))
+    with pytest.raises(DataValidationError, match="Expected 7043 rows"):
+        validate_processed(clean, expected_rows=7043, check_reference_metrics=True)

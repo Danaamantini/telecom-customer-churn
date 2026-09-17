@@ -1,27 +1,11 @@
-# ---------------------------------------------------------------------------
-# Telecom Customer Churn — minimal reproducible environment
-# ---------------------------------------------------------------------------
-# Install with:  pip install -r requirements.txt
-# (Create a virtualenv first:  python3 -m venv .venv && source .venv/bin/activate)
-# ---------------------------------------------------------------------------
-
-# Data wrangling & numeric compute
-pandas>=1.5.0
-numpy>=1.23.0
-
-# Analytical SQL engine (default engine for sql/ artifacts)
-duckdb>=0.8.0
-
-# Visualization
-matplotlib>=3.6.0
-seaborn>=0.12.0
-
-# Modeling
-scikit-learn>=1.2.0
-
-# Notebook tooling
-jupyter>=1.0.0
-nbformat>=5.7.0
-
-# Testing
-pytest>=7.0.0
+# Reproducible environment (Python 3.11+)
+pandas==3.0.5
+numpy==2.5.2
+duckdb==1.5.5
+matplotlib==3.11.2
+seaborn==0.13.2
+scikit-learn==1.9.1
+jupyter==1.1.1
+nbformat==5.10.4
+nbconvert==7.17.1
+pytest==9.1.1

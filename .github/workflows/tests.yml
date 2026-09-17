@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest -q
+      - name: Compile Python sources
+        run: python -m compileall -q src tests run_pipeline.py
+      - name: Build synthetic analysis outputs
+        run: >-
+          python run_pipeline.py
+          --raw tests/fixtures/sample_customers.csv
+          --processed data/processed/clean_customers.csv
+          --database data/processed/churn.duckdb
+          --no-reference-checks
+      - name: Execute notebooks
+        run: |
+          jupyter nbconvert --to notebook --execute notebooks/01_eda.ipynb --output /tmp/01_eda.ipynb
+          jupyter nbconvert --to notebook --execute notebooks/02_business_analysis.ipynb --output /tmp/02_business_analysis.ipynb
+          jupyter nbconvert --to notebook --execute notebooks/03_logistic_model.ipynb --output /tmp/03_logistic_model.ipynb

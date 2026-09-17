@@ -1,86 +1,115 @@
-# Telecom Customer Churn — Analytics Portfolio
+# Telecom Customer Churn Analysis
 
-[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![DuckDB](https://img.shields.io/badge/DuckDB-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org/)
-[![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![Tableau](https://img.shields.io/badge/Tableau-E97627?logo=tableau&logoColor=white)](https://public.tableau.com/)
+[![tests](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml/badge.svg)](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)](https://www.python.org/)
+[![DuckDB](https://img.shields.io/badge/SQL-DuckDB-FFF000)](https://duckdb.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-End-to-end **customer churn analysis** for a California telecom provider
-(7,043 residential customers, end of Q2 2022). The project runs from raw CSV
-ingestion through SQL transformation, exploratory analysis, and churn modeling,
-and finishes with four executive **Tableau dashboards**.
+Reproducible analysis of customer churn for a fictional California telecom
+provider. The project uses Python for data preparation, SQL for business
+metrics, Tableau for presentation, and one interpretable logistic-regression
+exercise.
 
-> **Live dashboard:** *(Tableau Public link — coming soon)*
->
-> <!-- Uncomment once the demo GIF is recorded:
-> ![Demo](reports/demo.gif)
-> -->
+## Business question
+
+Which customer segments are most associated with churn, how much recurring
+revenue is attached to churned customers, and which retention actions should be
+tested first?
 
 ## Key findings
 
-| KPI | Value |
-|-----|-------|
-| Overall churn rate | **28.4%** (1,869 of 6,589 existing customers) |
-| MRR at risk | **$137,087 / month** |
-| Annualized revenue at risk | **$1.65M** (12m) · **$3.29M** (24m) · **$4.94M** (36m) |
-| Churn by contract | Month-to-Month **51.7%** · One-Year 10.9% · Two-Year 2.6% |
-| Churn by internet type | Fiber Optic **42.1%** · Cable 27.5% · DSL 20.0% |
-| Churn by payment method | Mailed Check **41.4%** · Credit Card 15.8% |
-| Retention driver | 3 add-ons (security + backup + device protection) → **7.2%** vs none 35.3% |
-| Top churn category | **Competitor** — 45% of all churn |
-| Model (5-fold CV ROC-AUC) | Random Forest **0.927** · Logistic Regression **0.914** |
+Results below are reconciled against the complete 7,043-row source dataset:
 
-## Dashboards (Tableau)
+| Metric | Result |
+|---|---:|
+| Existing customers | 6,589 |
+| Churned customers | 1,869 |
+| Overall churn rate | 28.4% |
+| Monthly recurring revenue associated with churn | $137,086.65 |
+| Annualized run-rate | $1.65M |
+| Month-to-Month churn rate | 51.7% |
+| Fiber Optic churn rate | 42.1% |
+| Leading churn category | Competitor (45% of churn) |
 
-Four interactive dashboards, specified in `reports/tableau/`:
+These are observational associations, not causal effects. Recommendations
+should be validated through controlled retention experiments.
 
-1. **Churn Overview** — churn rate by contract, internet type, payment method, tenure, and offer.
-2. **Revenue at Risk** — dollar impact across 12/24/36-month horizons, by contract.
-3. **Retention Drivers** — add-on bundling, feature importance, and early-tenure stickiness.
-4. **Regional & Infrastructure** — ZIP-level choropleth plus fiber-vs-other hotspots.
+## Reproduce the project
 
-## Architecture
-
-```
-data/raw/  ──►  data/interim/  ──►  data/processed/  ──►  sql/views/  ──►  Tableau
- (CSV)         (typed/clean)        (feature-engineered)   (BI marts)      (dashboards)
-```
-
-- **Ingestion & validation** — `src/data/` (Python): lossless staging, type coercion, and validation.
-- **SQL layering** — `sql/schemas/`, `sql/transformations/`, `sql/views/` (DuckDB), all reading from the canonical table `analytics.clean_customers`.
-- **Modeling** — `notebooks/04_feature_importance.ipynb`: 5-fold stratified CV (RF + LR) plus permutation importance.
-
-## Repository structure
-
-```
-├── notebooks/          # 01_eda → 05_storytelling (executed)
-├── sql/
-│   ├── schemas/        # canonical DDL
-│   ├── transformations/# type casting + feature engineering
-│   └── views/          # 11 analytical BI views
-├── src/                # reusable Python (config, ingestion, validation, io)
-├── tests/              # pytest suite (18 tests)
-├── reports/
-│   ├── insights/       # data dictionary, findings, recommendations
-│   ├── figures/        # saved charts (PNG)
-│   └── tableau/        # data sources, calculated fields, dashboards, .twb
-└── PIPELINE.md         # full reproduction walkthrough
-```
-
-## Getting started
+Requires Python 3.11 or newer.
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
+git clone https://github.com/Danaamantini/telecom-customer-churn.git
+cd telecom-customer-churn
+python3 -m venv .venv
+source .venv/bin/activate       # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Then follow `PIPELINE.md` for the full end-to-end reproduction (ingestion →
-SQL layering → validation → notebooks). Data files are **not** committed (see
-`.gitignore`); the dataset is the public **Maven Analytics "Telecom Customer
-Churn"** playground dataset.
+Download the public-domain [Maven Analytics Telecom Customer Churn dataset](https://mavenanalytics.io/data-playground/telecom-customer-churn)
+and place the main customer CSV at:
+
+```text
+data/raw/telecom_customer_churn.csv
+```
+
+Then run:
+
+```bash
+python run_pipeline.py
+pytest -q
+```
+
+The pipeline validates the source, creates the 43-column customer table,
+exports `data/processed/clean_customers.csv`, builds
+`data/processed/churn.duckdb`, and creates the documented SQL views.
+
+Execute the analysis notebooks after the pipeline:
+
+```bash
+jupyter nbconvert --to notebook --execute notebooks/01_eda.ipynb --output /tmp/01_eda.ipynb
+jupyter nbconvert --to notebook --execute notebooks/02_business_analysis.ipynb --output /tmp/02_business_analysis.ipynb
+jupyter nbconvert --to notebook --execute notebooks/03_logistic_model.ipynb --output /tmp/03_logistic_model.ipynb
+```
+
+## Project structure
+
+```text
+data/         source-data instructions and generated outputs
+notebooks/    EDA, business analysis, and optional logistic model
+src/          canonical preparation and validation pipeline
+sql/          KPIs, churn segments, and revenue analysis
+tests/        synthetic fixture plus unit/integration tests
+reports/      final written analysis and generated figures
+dashboard/    Tableau workbook and connection instructions
+```
+
+## Method
+
+1. Validate the original 38-column customer file.
+2. Convert numeric and Yes/No fields without dropping rows.
+3. Create five transparent features: churn, tenure group, contract commitment,
+   bundle count, and Fiber flag.
+4. Exclude `Joined` customers from churn-rate denominators.
+5. Calculate business KPIs and segment comparisons in DuckDB SQL.
+6. Treat the logistic model as an explanatory exercise, not a production
+   forecast.
+
+See [reports/final_report.md](reports/final_report.md) for findings and
+limitations, [reports/data_dictionary.md](reports/data_dictionary.md) for the
+data contract, and [dashboard/README.md](dashboard/README.md) for Tableau setup.
+
+## Reproducibility safeguards
+
+- one canonical Python transformation path;
+- exact dependency versions;
+- fixed validation totals for the full dataset;
+- synthetic test data committed to the repository;
+- Python and SQL integration tests;
+- automated notebook execution in GitHub Actions;
+- generated data excluded from version control.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Project code is MIT licensed. The source dataset is listed by Maven Analytics
+as public domain and originates from IBM Cognos Analytics.

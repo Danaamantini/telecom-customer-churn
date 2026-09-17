@@ -3,13 +3,10 @@
 # ---------------------------------------------------------------------------
 
 # ---- Data (immutable raw + derived artifacts must NOT be tracked) ----------
-# Ignore data files, but keep the scaffolding (README + .gitkeep) tracked.
+# Ignore source/generated data files, but keep directory placeholders tracked.
 data/raw/*
-data/interim/*
 data/processed/*
-!data/raw/README.md
 !data/raw/.gitkeep
-!data/interim/.gitkeep
 !data/processed/.gitkeep
 
 # ---- Python ----------------------------------------------------------------
@@ -28,6 +25,9 @@ env/
 ENV/
 .ipynb_checkpoints/
 *.ipynb_checkpoints/
+.jupyter-config/
+.jupyter-data/
+.ipython-data/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -53,3 +53,15 @@ AGENTS.md
 opencode.json
 prompt-1
 prompt-2
+
+# ---- Personal project notes (local only) -----------------------------------
+# Keep repository-reading guides, work plans, and interview preparation out
+# of the public portfolio. Public technical documentation belongs in README.md
+# or reports/.
+REPO_TOUR.md
+reports/portfolio_plan.md
+notes/
+docs/private/
+interview-prep/
+INTERVIEW*.md
+interview_*.md
