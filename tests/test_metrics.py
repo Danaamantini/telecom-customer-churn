@@ -31,4 +31,15 @@ def test_sql_views_reconcile_with_fixture(tmp_path: Path):
     assert kpis[1] == 2
     assert kpis[2] == pytest.approx(0.4)
     assert kpis[4] == pytest.approx(90.0)
-    assert {"v_kpis", "v_churn_by_segment", "v_churn_reasons", "v_revenue_by_contract", "v_churn_by_city"} <= views
+    assert {
+        "v_kpis",
+        "v_churn_by_segment",
+        "v_churn_reasons",
+        "v_revenue_by_contract",
+        "v_churn_by_city",
+        "v_dashboard_kpis",
+        "v_priority_segment",
+        "v_priority_churn_drivers",
+        "v_retention_test_candidates",
+        "v_zip3_diagnostic",
+    } <= views

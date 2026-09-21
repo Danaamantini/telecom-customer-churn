@@ -4,67 +4,94 @@
 
 The snapshot contains 7,043 customers: 4,720 stayed, 1,869 churned, and 454
 recently joined. Excluding the acquisition cohort, observed churn is **28.4%**.
-Churn is concentrated among Month-to-Month customers, Fiber Optic customers,
-early-tenure accounts, and customers paying by mailed check.
+The churned customers account for **$137,086.65 in monthly revenue**, equal to
+**32.0%** of the monthly revenue associated with existing customers.
 
-The monthly charges attached to churned customers total **$137,086.65**. The
-annualized figure of approximately **$1.65M** is a simple run-rate (`MRR × 12`),
-not a discounted revenue forecast.
+The largest decision signal is not simply the size of the Month-to-Month base.
+Month-to-Month and committed contracts have similar existing-customer counts
+(3,202 versus 3,387), but Month-to-Month accounts for 1,655 churns versus 214
+for One Year and Two Year combined.
 
 ## Main findings
 
-### Contract
+### Contract risk
 
-Month-to-Month customers show a 51.7% churn rate, compared with 10.9% for One
-Year and 2.6% for Two Year contracts. Contract choice is strongly associated
-with churn, but customers self-select into contracts; the gap is not a causal
-estimate of converting an account.
+Month-to-Month customers have a 51.7% churn rate, compared with 10.9% for One
+Year and 2.6% for Two Year. The committed-contract rate is 6.3% when One Year
+and Two Year are combined. Month-to-Month customers represent 48.6% of the
+existing base but 88.6% of all churned customers.
 
-### Internet service
+Contract choice is associated with churn, but customers self-select into
+contracts. The comparison does not estimate the causal effect of converting an
+account to a longer commitment.
 
-Fiber Optic customers show 42.1% churn, compared with 27.5% for Cable and 20.0%
-for DSL. This motivates investigation of Fiber pricing, delivered service, and
-local market competition.
+### Revenue exposure
 
-### Customer tenure
+Existing customers account for $428,487.25 in monthly revenue. Churned accounts
+account for $137,086.65. The annualized $1.65M figure is only a simple run-rate
+(`monthly revenue × 12`), not profit, margin, net present value, or a forecast.
 
-Churn is highest among newer customers. Because this is a cross-sectional
-snapshot rather than customer-level event history, the result is described as
-“churn by tenure group,” not a survival or cohort-retention curve.
+Customers with monthly charges of at least $90.40 contribute $55,400.55, or
+40.4%, of the monthly revenue associated with churn. This identifies a revenue
+protection population; it does not imply that higher charges cause churn.
 
-### Churn reasons
+### Priority segment
 
-Competitor-related reasons represent 45% of churn. Better devices and better
-offers are the most common specific competitor reasons, supporting targeted
-offer testing rather than a blanket discount.
+The most actionable concentration is Fiber Optic, Month-to-Month, and tenure
+from 4 through 24 months. Among 807 existing customers in this intersection,
+496 churned. The resulting churn rate is 61.5%, and the churned customers carry
+$42,417.50 in monthly revenue.
 
-### Recurring revenue
+Within this segment, competitor reasons account for 239 churns (48.2%).
+Dissatisfaction and attitude are grouped as service experience and account for
+175 churns (35.3%). Price accounts for 43 (8.7%), and all remaining categories
+account for 39 (7.9%). Competition and service experience therefore explain
+83.5% of reported churn in the priority segment.
 
-Churned accounts carry $137,086.65 in observed monthly charges. Negative
-monthly-charge records are retained because they appear to represent credits;
-the pipeline reports rather than silently removes them.
+### Secondary geographic diagnostic
 
-## Recommended experiments
+ZIP3 `921` has 287 existing customers and 188 churns, a 65.5% churn rate.
+Competitor reasons account for 153 of those churns, and 147 mention an offer.
+This is a localized competitor-offer signal. Geography remains secondary in
+the dashboard because ZIP areas can proxy for market conditions, product mix,
+or service differences and are not causal explanations by themselves.
 
-1. Test a targeted One Year migration offer for high-risk Month-to-Month
-   customers against a holdout group.
-2. Investigate Fiber price and service quality in high-churn markets before
-   changing the full product.
-3. Test structured onboarding contacts during the first 90 days.
-4. Test competitor offer matching only for customers showing relevant risk
-   signals.
+## Recommended retention tests
 
-Primary outcomes should be churn and retained monthly revenue. Each experiment
-needs a control group so the incremental effect can be separated from customer
-self-selection.
+### 1. Redesign Offer E
+
+Offer E has 426 churns among 630 existing customers, a 67.6% observed churn
+rate. The current non-churned population contains 379 customers and $17,553.85
+in monthly revenue. Test a redesigned offer against a comparable holdout group.
+
+### 2. Protect high-value Month-to-Month customers
+
+There are 291 `Stayed` Month-to-Month customers with monthly charges of at
+least $90.40. They represent $28,814.85 in current monthly revenue. Test a
+targeted protection treatment rather than applying a blanket discount.
+
+### 3. Test proactive Fiber support
+
+The combination of Fiber Optic, Month-to-Month, tenure from 4 through 24
+months, and no premium tech support appears among 438 prior churns. There are
+253 matching `Stayed` customers with $20,388.05 in monthly revenue. Test a
+proactive support intervention with treatment and control groups.
+
+The three action cohorts overlap. They are separate experiment candidates, not
+additive customer or revenue totals.
 
 ## Limitations
 
 - The data is a single historical snapshot, not a longitudinal event table.
-- Associations between services, contracts, and churn are not causal effects.
-- The annualized revenue metric assumes the observed churned MRR persists for
-  twelve months and is not an NPV calculation.
-- Support interactions, network quality, marketing cost, and gross margin are
-  absent.
-- The logistic model uses random cross-validation on the same snapshot and
-  therefore does not estimate future-quarter performance.
+- Associations between services, contracts, location, and churn are not causal
+  effects.
+- Reported churn reasons exist only for churned customers and may reflect
+  customer or agent categorization.
+- Monthly revenue is not profit; costs, margin, discounts, and intervention
+  expense are absent.
+- The annualized figure assumes the observed monthly amount persists for twelve
+  months and is not an NPV calculation.
+- Support interactions, network-quality measures, marketing cost, and gross
+  margin are absent.
+- The logistic model uses random cross-validation on the same snapshot and does
+  not estimate future-quarter performance.

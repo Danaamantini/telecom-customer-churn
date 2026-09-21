@@ -1,4 +1,9 @@
-"""Build the static portfolio dashboard shown in the GitHub README."""
+"""Build an optional lightweight preview from the processed customer table.
+
+The canonical portfolio image is exported from Tableau. This utility remains
+available for environments where Tableau is not installed, but it does not
+replace ``dashboard/telecom_churn_dashboard.png``.
+"""
 
 from __future__ import annotations
 
@@ -12,7 +17,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "data" / "processed" / "clean_customers.csv"
-DEFAULT_OUTPUT = ROOT / "dashboard" / "telecom_churn_dashboard.png"
+DEFAULT_OUTPUT = ROOT / "dashboard" / "telecom_churn_dashboard_generated.png"
 
 NAVY = "#132238"
 BLUE = "#3B82F6"
