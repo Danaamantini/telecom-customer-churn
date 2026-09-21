@@ -1953,8 +1953,8 @@
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
                 <format attr='border-width' value='0' />
-                <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='4' />
-                <format attr='margin' value='4' />
+                <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='0' />
+                <format attr='margin' value='0' />
                 <format attr='padding' value='6' />
                 <format attr='background-color' value='#101629' />
               </zone-style>
@@ -1968,14 +1968,14 @@
           </zone>
           <zone forceUpdate='true' h='8000' id='30' type-v2='text' w='49429' x='571' y='91111'>
             <formatted-text>
-              <run fontcolor='#a1abbd'>Secondary diagnostic: ZIP3  921 shows a localized competitor-offer signal.</run>
+              <run fontcolor='#a1abbd'>Secondary diagnostic: ZIP3 921 shows a localized competitor-offer signal.</run>
             </formatted-text>
             <zone-style>
               <format attr='border-color' value='#000000' />
               <format attr='border-style' value='none' />
               <format attr='border-width' value='0' />
-              <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='4' />
-              <format attr='margin' value='4' />
+              <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='0' />
+              <format attr='margin' value='0' />
               <format attr='padding' value='6' />
               <format attr='background-color' value='#101629' />
             </zone-style>
@@ -2139,15 +2139,15 @@
                 </zone>
                 <zone forceUpdate='true' h='8000' id='30' type-v2='text' w='49429' x='571' y='91111'>
                   <formatted-text>
-                    <run fontcolor='#a1abbd'>Secondary diagnostic: ZIP3  921 shows a localized competitor-offer signal.</run>
+                    <run fontcolor='#a1abbd'>Secondary diagnostic: ZIP3 921 shows a localized competitor-offer signal.</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
                     <format attr='border-width' value='0' />
-                    <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='4' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
+                    <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='0' />
+                    <format attr='margin' value='0' />
+                    <format attr='padding' value='6' />
                     <format attr='background-color' value='#101629' />
                   </zone-style>
                 </zone>
@@ -2159,9 +2159,9 @@
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
                     <format attr='border-width' value='0' />
-                    <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='4' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
+                    <_.fcp.DashboardRoundedCorners.true...format attr='corner-radius' value='0' />
+                    <format attr='margin' value='0' />
+                    <format attr='padding' value='6' />
                     <format attr='background-color' value='#101629' />
                   </zone-style>
                 </zone>

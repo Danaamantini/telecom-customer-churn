@@ -2,9 +2,7 @@
 
 [![tests](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml/badge.svg)](https://github.com/Danaamantini/telecom-customer-churn/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB)](https://www.python.org/)
-[![DuckDB](https://img.shields.io/badge/SQL-DuckDB-FFF000)](https://duckdb.org/)
 [![Tableau](https://img.shields.io/badge/Dashboard-Tableau-E97627)](dashboard/README.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Reproducible customer-churn analysis for a fictional California telecom
 provider. Python prepares and validates the data, DuckDB reproduces the
